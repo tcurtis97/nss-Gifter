@@ -74,7 +74,7 @@ namespace Gifter.Repositories
                        up.ImageUrl AS UserProfileImageUrl
                              FROM Post p 
                        LEFT JOIN UserProfile up ON p.UserProfileId = up.id
-                           WHERE Id = @Id";
+                           WHERE p.Id = @Id";
 
                     DbUtils.AddParameter(cmd, "@Id", id);
 
