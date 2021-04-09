@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Gifter.Repositories;
 using Gifter.Models;
+using System.Collections.Generic;
 
 namespace Gifter.Controllers
 {
@@ -65,6 +66,16 @@ namespace Gifter.Controllers
             return Ok(posts);
         }
 
+        [HttpGet("GetPostByIdWithComments{id}")]
+        public IActionResult GetPostByIdWithComments(int id)
+        {
+            var post = _postRepository.GetPostByIdWithComments(id);
+            if (post == null)
+            {
+                return NotFound();
+            }
+            return Ok(post);
+        }
 
 
     }
