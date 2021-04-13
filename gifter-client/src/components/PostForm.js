@@ -1,77 +1,79 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useState, useContext } from "react";
+import {
+  Form,
+  FormGroup,
+  Card,
+  CardBody,
+  Label,
+  Input,
+  Button,
+} from "reactstrap";
 import { PostContext } from "../providers/PostProvider";
-import Post from "./Post";
+import { useHistory } from "react-router-dom";
 
-export const PostForm = () => {
-  const [post, setPosts] = useState({
-    title: "",
-    caption: "",
-    imageUrl: "",
-  });
+const PostForm = () => {
+  const { addPost } = useContext(PostContext);
+  const [userProfileId, setUserProfileId] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [title, setTitle] = useState("");
+  const [caption, setCaption] = useState("");
 
-  const handleControlledInputChange = (event) => {
-    const newPost = { ...post };
-    let selectedVal = event.target.value;
-    if (event.target.id.includes("Id")) {
-      selectedVal = parseInt(selectedVal);
-    }
+  // Use this hook to allow us to programatically redirect users
+  const history = useHistory();
 
-    newPost[event.target.id] = selectedVal;
+  const submit = (e) => {
+    const post = {
+      imageUrl,
+      title,
+      caption,
+      userProfileId: +userProfileId,
+    };
 
-    setPosts(newPost);
+    addPost(post).then((p) => {
+      // Navigate the user back to the home route
+      history.push("/");
+    });
   };
 
   return (
-    <form className="postForm">
-      <h2 className="postForm__title">New post</h2>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="title">post title:</label>
-          <input
-            type="text"
-            id="title"
-            onChange={handleControlledInputChange}
-            required
-            autoFocus
-            className="form-control"
-            placeholder="post title"
-            value={post.title}
-          />
-        </div>
-      </fieldset>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="caption">post caption:</label>
-          <input
-            type="text"
-            id="caption"
-            onChange={handleControlledInputChange}
-            required
-            autoFocus
-            className="form-control"
-            placeholder="post caption"
-            value={post.caption}
-          />
-        </div>
-      </fieldset>
-      <fieldset>
-        <div className="form-group">
-          <label htmlFor="imageUrl">post imageUrl:</label>
-          <input
-            type="text"
-            id="imageUrl"
-            onChange={handleControlledInputChange}
-            required
-            autoFocus
-            className="form-control"
-            placeholder="post imageUrl"
-            value={post.imageUrl}
-          />
-        </div>
-      </fieldset>
-
-      <button className="btn btn-primary">Save post</button>
-    </form>
+    <div className="container pt-4">
+      <div className="row justify-content-center">
+        <Card className="col-sm-12 col-lg-6">
+          <CardBody>
+            <Form>
+              <FormGroup>
+                <Label for="userId">User Id (For Now...)</Label>
+                <Input
+                  id="userId"
+                  onChange={(e) => setUserProfileId(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="imageUrl">Gif URL</Label>
+                <Input
+                  id="imageUrl"
+                  onChange={(e) => setImageUrl(e.target.value)}
+                />
+              </FormGroup>
+              <FormGroup>
+                <Label for="title">Title</Label>
+                <Input id="title" onChange={(e) => setTitle(e.target.value)} />
+              </FormGroup>
+              <FormGroup>
+                <Label for="caption">Caption</Label>
+                <Input
+                  id="caption"
+                  onChange={(e) => setCaption(e.target.value)}
+                />
+              </FormGroup>
+            </Form>
+            <Button color="info" onClick={submit}>
+              SUBMIT
+            </Button>
+          </CardBody>
+        </Card>
+      </div>
+    </div>
   );
 };
 
