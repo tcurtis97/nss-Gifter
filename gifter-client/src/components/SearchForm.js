@@ -1,30 +1,23 @@
-import React from "react";
-import ReactDOM from "react-dom";
+import React, { useContext, useEffect } from "react";
+import { PostContext } from "../providers/PostProvider";
 
-const SearchBar = ({ onChange, placeholder }) => {
-  const [searchTerm, setSearchTerm] = React.useState("");
-  const [searchResults, setSearchResults] = React.useState([]);
+export const SearchBar = () => {
+  const { searchTerm, setSearchTerms } = useContext(PostContext);
 
   const handleChange = (event) => {
-    setSearchTerm(event.target.value);
+    setSearchTerms(event.target.value);
   };
-
-  useEffect(() => {
-    getAllPosts();
-  }, []);
 
   return (
     <div className="App">
       <input
         type="text"
+        id="searchbar"
         placeholder="Search"
         value={searchTerm}
         onChange={handleChange}
       />
-      <ul>
-        <li>Item 1</li>
-        <li>Item 2</li>
-      </ul>
     </div>
   );
 };
+export default SearchBar;
