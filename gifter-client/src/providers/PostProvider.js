@@ -34,6 +34,10 @@ export const PostProvider = (props) => {
       .then(setPosts);
   };
 
+  const getPost = (id) => {
+    return fetch(`/api/post/${id}`).then((res) => res.json());
+  };
+
   return (
     <PostContext.Provider
       value={{
