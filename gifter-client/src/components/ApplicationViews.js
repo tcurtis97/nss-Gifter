@@ -9,16 +9,24 @@ const ApplicationViews = () => {
   return (
     <Switch>
       <Route path="/" exact>
-        <SearchForm />
-        <PostList />
+        {isLoggedIn ? <SearchForm /> : <Redirect to="/login" />}
+        {isLoggedIn ? <PostList /> : <Redirect to="/login" />}
       </Route>
 
       <Route path="/posts/add">
-        <PostForm />
+        {isLoggedIn ? <PostForm /> : <Redirect to="/login" />}
       </Route>
 
       <Route path="/posts/:id">
-        <PostDetails />
+        {isLoggedIn ? <PostDetails /> : <Redirect to="/login" />}
+      </Route>
+
+      <Route path="/login">
+        <Login />
+      </Route>
+
+      <Route path="/register">
+        <Register />
       </Route>
     </Switch>
   );
