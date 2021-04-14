@@ -162,10 +162,12 @@ namespace Gifter.Repositories
 
                         p.Id AS PostId, p.Title, p.Caption, p.DateCreated AS PostDateCreated,
                        p.ImageUrl AS PostImageUrl, p.UserProfileId AS PostUserProfileId,
+
+                         c.UserProfileId as CommentUserProfileId, c.PostId AS CommentPostId, c.Message
                      
                   FROM UserProfile up
                        LEFT JOIN Post p ON p.UserProfileId = up.id
-                      
+                       LEFT JOIN Comment c on c.postId = p.Id
               WHERE up.Id = @Id";
                     DbUtils.AddParameter(cmd, "@Id", id);
                     var reader = cmd.ExecuteReader();
@@ -188,12 +190,21 @@ namespace Gifter.Repositories
                             DateCreated = DbUtils.GetDateTime(reader, "PostDateCreated"),
                             ImageUrl = DbUtils.GetString(reader, "PostImageUrl"),
                             UserProfileId = DbUtils.GetInt(reader, "PostUserProfileId"),
+                            Comments = new List<Comment>()
                             },
-                            
                         };
 
+                        if (DbUtils.IsNotDbNull(reader, "CommentId"))
+                        {
+                            userprofile.post.Comments.Add(new Comment()
+                            {
+                                Id = DbUtils.GetInt(reader, "CommentId"),
+                                Message = DbUtils.GetString(reader, "Message"),
+                                PostId = id,
+                                UserProfileId = DbUtils.GetInt(reader, "CommentUserProfileId")
+                            });
+                        }
 
-                       
 
                     }
 

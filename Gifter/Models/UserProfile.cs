@@ -21,5 +21,7 @@ namespace Gifter.Models
 
         public Post post { get; set; }
 
+        public List<Post> Posts { get; set; }
+
     }
 }

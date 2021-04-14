@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardImg, CardBody } from "reactstrap";
+import { Link } from "react-router-dom";
 
 const Post = ({ post }) => {
   return (
@@ -16,6 +17,9 @@ const Post = ({ post }) => {
             return <li key={c.id}>{c.message}</li>;
           })}
         </ul>
+        <Link to={`/posts/${post.id}`}>
+          <strong>{post.title}</strong>
+        </Link>
       </CardBody>
     </Card>
   );
