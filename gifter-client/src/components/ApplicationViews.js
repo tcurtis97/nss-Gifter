@@ -1,11 +1,15 @@
-import React from "react";
-import { Switch, Route } from "react-router-dom";
+import React, { useContext } from "react";
+import { Switch, Route, Redirect } from "react-router-dom";
+import { UserProfileContext } from "../providers/UserProfileProvider";
+import Login from "./Login";
+import Register from "./Register";
 import PostList from "./PostList";
 import PostForm from "./PostForm";
 import SearchForm from "./SearchForm";
 import PostDetails from "./PostDetails";
 
 const ApplicationViews = () => {
+  const { isLoggedIn } = useContext(UserProfileContext);
   return (
     <Switch>
       <Route path="/" exact>

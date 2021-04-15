@@ -23,5 +23,9 @@ namespace Gifter.Models
 
         public List<Post> Posts { get; set; }
 
+        [Required]
+        [StringLength(28, MinimumLength = 28)]
+        public string FirebaseUserId { get; set; }
+
     }
 }

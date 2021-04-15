@@ -46,3 +46,4 @@ C:\Users\Tim\workspace\csharp\Gifter\Gifter\obj\Debug\net5.0\Gifter.dll
 C:\Users\Tim\workspace\csharp\Gifter\Gifter\obj\Debug\net5.0\ref\Gifter.dll
 C:\Users\Tim\workspace\csharp\Gifter\Gifter\obj\Debug\net5.0\Gifter.pdb
 C:\Users\Tim\workspace\csharp\Gifter\Gifter\obj\Debug\net5.0\Gifter.genruntimeconfig.cache
+C:\Users\Tim\workspace\csharp\Gifter\Gifter\bin\Debug\net5.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
